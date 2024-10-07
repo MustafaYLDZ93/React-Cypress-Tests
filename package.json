@@ -1,0 +1,10 @@
+{
+  "name": "cypress_project",
+  "version": "1.0.0",
+  "devDependencies": {
+    "react-scripts": "*",
+    "react-dom": "*",
+    "react": "*",
+    "cypress": "*"
+  }
+}
