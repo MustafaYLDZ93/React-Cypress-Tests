@@ -9,7 +9,7 @@ module.exports = defineConfig({
       bundler: "webpack",
       webpackConfig,
     },
-    supportFile: "cypress/support/component.js",
+    supportFile: false,
     specPattern: "cypress/component/**/*.cy.{js,jsx,ts,tsx}",
   },
 
