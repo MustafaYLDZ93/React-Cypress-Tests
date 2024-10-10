@@ -54,7 +54,7 @@ jobs:
 
     # Build React uygulaması
     - name: Build React app
-      run: npm run build
+      run: npm run start
       env:
         CI: true
 
