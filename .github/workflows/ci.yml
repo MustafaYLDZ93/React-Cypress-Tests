@@ -1,21 +1,22 @@
 name: Cypress Component Tests
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+on: [push, pull_request]
 
 jobs:
-  run-tests:
+  cypress:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: '16'  # Veya projeniz için uygun Node.js sürümü
+
       - name: Install dependencies
-        run: npm ci
+        run: npm install --legacy-peer-deps  # legacy-peer-deps eklenmiş
+
       - name: Run Cypress component tests
-        run: npx cypress run --component
+        run: npx cypress run --component  # Bileşen testlerini çalıştırma
