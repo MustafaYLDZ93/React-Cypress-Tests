@@ -32,10 +32,15 @@ jobs:
           name: cypress-screenshots
           path: cypress/screenshots
 
-      - uses: actions/upload-artifact@v4
+      - name: Upload videos on failure
         if: failure()
+        uses: actions/upload-artifact@v4
         with:
           name: cypress-videos
           path: cypress/videos
+          if-no-files-found: warn
+          compression-level: 6
+          overwrite: false
+          include-hidden-files: false
 
     
