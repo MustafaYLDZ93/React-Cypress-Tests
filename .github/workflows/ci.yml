@@ -67,6 +67,20 @@ jobs:
       run: npm ci --legacy-peer-deps
       working-directory: cypress-react-app
 
+    # cypress-react-app/public dizinini listele (Tanılama)
+    - name: List cypress-react-app/public Directory
+      run: ls -la
+      working-directory: cypress-react-app/public
+
+    # public dizininde index.html dosyasını kontrol et (Tanılama)
+    - name: Check for index.html
+      run: |
+        if [ ! -f "index.html" ]; then
+          echo "index.html dosyası bulunamadı!"
+          exit 1
+        fi
+      working-directory: cypress-react-app/public
+
     # React Uygulamasını Derleme
     - name: Build React app
       run: npm run build
