@@ -44,7 +44,7 @@ jobs:
     # Component Testlerini Çalıştırma
     - name: Run Component Tests
       run: npx cypress run --component
-      working-directory: /Users/musti/AquaProjects/React-Cypress-Test/cypress/component
+      working-directory: /cypress/component
       env:
         CI: true
 
