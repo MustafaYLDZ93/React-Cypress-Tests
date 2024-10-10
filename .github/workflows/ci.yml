@@ -10,10 +10,6 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     
-    defaults:
-      run:
-        working-directory: cypress-react-app
-
     strategy:
       matrix:
         node-version: [18.x]
@@ -26,58 +22,82 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
+        cache: 'npm' # Yerleşik npm önbelleğini etkinleştirir
 
-    # NPM cache ayarı
-    - name: Cache NPM dependencies
+    # Kök NPM bağımlılıklarını önbelleğe alma
+    - name: Cache Root NPM dependencies
       uses: actions/cache@v3
       with:
         path: |
-          cypress-react-app/node_modules
+          node_modules
           ~/.npm
-        key: ${{ runner.os }}-node-${{ hashFiles('cypress-react-app/package-lock.json') }}
+        key: ${{ runner.os }}-node-root-${{ hashFiles('package-lock.json') }}
         restore-keys: |
-          ${{ runner.os }}-node-
+          ${{ runner.os }}-node-root-
 
-    # Cypress binary cache
+    # Cypress ikili dosyasını önbelleğe alma
     - name: Cache Cypress binary
       uses: actions/cache@v3
       with:
         path: ~/.cache/Cypress
-        key: cypress-binary-${{ runner.os }}-${{ hashFiles('cypress-react-app/package-lock.json') }}
+        key: cypress-binary-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
         restore-keys: |
           cypress-binary-${{ runner.os }}-
 
-    - name: Install dependencies
+    # Kök Bağımlılıklarını Kurma
+    - name: Install Root dependencies
       run: |
         npm ci --legacy-peer-deps
         npx cypress verify
+      working-directory: .
 
-    # Build React uygulaması
+    # React Uygulaması NPM bağımlılıklarını önbelleğe alma
+    - name: Cache React App NPM dependencies
+      uses: actions/cache@v3
+      with:
+        path: |
+          cypress-react-app/node_modules
+          cypress-react-app/.npm
+        key: ${{ runner.os }}-node-react-${{ hashFiles('cypress-react-app/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-react-
+
+    # React Uygulaması Bağımlılıklarını Kurma
+    - name: Install React App dependencies
+      run: npm ci --legacy-peer-deps
+      working-directory: cypress-react-app
+
+    # React Uygulamasını Derleme
     - name: Build React app
-      run: npm run start
+      run: npm run build
+      working-directory: cypress-react-app
       env:
         CI: true
 
-    # Component Testleri
-    - name: Run Component Tests
-      run: npx cypress run --component
-      env:
-        CI: true
-
-    # Development sunucusunu başlat
+    # React Geliştirme Sunucusunu Başlatma
     - name: Start development server
       run: |
-        npm run start & npx wait-on http://localhost:3000
+        npm run start &
+        npx wait-on http://localhost:3000
+      working-directory: cypress-react-app
       env:
         CI: true
 
-    # E2E Testleri
+    # Bileşen Testlerini Çalıştırma
+    - name: Run Component Tests
+      run: npx cypress run --component
+      working-directory: .
+      env:
+        CI: true
+
+    # E2E Testlerini Çalıştırma
     - name: Run E2E Tests
       run: npx cypress run --e2e
+      working-directory: .
       env:
         CI: true
 
-    # Test sonuçlarını kaydet
+    # Test Sonuçlarını Yükleme
     - name: Upload Test Results
       if: always()
       uses: actions/upload-artifact@v4
@@ -89,7 +109,7 @@ jobs:
           cypress-react-app/cypress/reports
         retention-days: 30
 
-    # Hata durumunda screenshot'ları kaydet
+    # Hata Durumunda Screenshot'ları Yükleme
     - name: Upload Failure Screenshots
       if: failure()
       uses: actions/upload-artifact@v4
