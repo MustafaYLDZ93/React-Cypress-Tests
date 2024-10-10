@@ -23,15 +23,10 @@ jobs:
         run: |
           npx cypress run --component || true  # Hata durumunda işleme devam et
 
-      - name: Capture screenshot on failure
-        if: steps.cypress-tests.outcome == 'failure'  # Eğer testler başarısızsa
-        run: |
-          mkdir -p screenshots
-          cp -r cypress/screenshots/* screenshots/  # Ekran görüntülerini al
-          
-      - name: Upload screenshots
-        if: steps.cypress-tests.outcome == 'failure'  # Eğer testler başarısızsa
-        uses: actions/upload-artifact@v3  # Güncel sürüm
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: screenshots
-          path: screenshots/
+          name: cypress-screenshots
+          path: cypress/screenshots
+          
+      
