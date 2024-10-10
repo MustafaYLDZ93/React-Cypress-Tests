@@ -50,7 +50,7 @@ describe('Counter Component', () => {
         cy.get('button').contains('Reset').click(); // Reset to 0
         cy.wait(500)
         cy.get('h1').should('contain', 'Counter: 0');
-        cy.get('p').should('contain', 'The count is zeroo.');
+        cy.get('p').should('contain', 'The count is zero.');
 
 
     });
