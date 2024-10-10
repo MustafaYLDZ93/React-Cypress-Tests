@@ -21,6 +21,7 @@ module.exports = defineConfig({
     screenshotOnRunFailure: true,
     screenshotsFolder: "cypress/screenshots",
     video: true,
+    videoUploadOnPasses: false,
   },
   e2e: {
     setupNodeEvents(on, config) {
