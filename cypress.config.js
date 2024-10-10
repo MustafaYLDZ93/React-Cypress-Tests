@@ -4,6 +4,7 @@ const webpackConfig = require("./webpack.config.js");
 module.exports = defineConfig({
   screenshotOnRunFailure: true,
   screenshotsFolder: "cypress/screenshots",
+  reporter: 'cypress-mochawesome-reporter',
 
   projectId: '3x5njp',
   component: {
