@@ -4,6 +4,10 @@ on: [push, pull_request]
 jobs:
   cypress:
     runs-on: ubuntu-latest
+
+    env:
+        TERM: xterm
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
