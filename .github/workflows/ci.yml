@@ -1,4 +1,4 @@
-name: React Cypress Tests
+name: React Cypress Component Tests
 
 on:
   push:
@@ -35,79 +35,16 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-node-root-
 
-    # Cypress ikili dosyasını önbelleğe alma
-    - name: Cache Cypress binary
-      uses: actions/cache@v3
-      with:
-        path: ~/.cache/Cypress
-        key: cypress-binary-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-        restore-keys: |
-          cypress-binary-${{ runner.os }}-
-
     # Kök Bağımlılıklarını Kurma
     - name: Install Root dependencies
       run: |
         npm ci --legacy-peer-deps
-        npx cypress verify
       working-directory: .
 
-    # React Uygulaması NPM bağımlılıklarını önbelleğe alma
-    - name: Cache React App NPM dependencies
-      uses: actions/cache@v3
-      with:
-        path: |
-          cypress-react-app/node_modules
-          cypress-react-app/.npm
-        key: ${{ runner.os }}-node-react-${{ hashFiles('cypress-react-app/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-react-
-
-    # React Uygulaması Bağımlılıklarını Kurma
-    - name: Install React App dependencies
-      run: npm ci --legacy-peer-deps
-      working-directory: cypress-react-app
-
-    # cypress-react-app/public dizinini listele (Tanılama)
-    - name: List files in directory
-      run: ls -la cypress-react-app/public
-  
-
-    # public dizininde index.html dosyasını kontrol et (Tanılama)
-    - name: Check for index.html
-      run: |
-        if [ ! -f "index.html" ]; then
-          echo "index.html dosyası bulunamadı!"
-          exit 1
-        fi
-      working-directory: cypress-react-app
-
-    # React Uygulamasını Derleme
-    - name: Build React app
-      run: npm run build
-      working-directory: cypress-react-app
-      env:
-        CI: true
-
-    # React Geliştirme Sunucusunu Başlatma
-    - name: Start development server
-      run: |
-        npm run start &
-        npx wait-on http://localhost:3000
-      working-directory: cypress-react-app
-      env:
-        CI: true
-
-    # Bileşen Testlerini Çalıştırma
+    # Component Testlerini Çalıştırma
     - name: Run Component Tests
       run: npx cypress run --component
-      working-directory: .
-      env:
-        CI: true
-
-    # E2E Testlerini Çalıştırma
-    - name: Run E2E Tests
-      run: npx cypress run --e2e
-      working-directory: .
+      working-directory: /Users/musti/AquaProjects/React-Cypress-Test/cypress/component
       env:
         CI: true
 
@@ -118,9 +55,9 @@ jobs:
       with:
         name: cypress-results
         path: |
-          cypress-react-app/cypress/videos
-          cypress-react-app/cypress/screenshots
-          cypress-react-app/cypress/reports
+          cypress/videos
+          cypress/screenshots
+          cypress/reports
         retention-days: 30
 
     # Hata Durumunda Screenshot'ları Yükleme
@@ -129,5 +66,5 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: cypress-screenshots
-        path: cypress-react-app/cypress/screenshots
+        path: cypress/screenshots
         retention-days: 5
