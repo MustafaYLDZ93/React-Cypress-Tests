@@ -26,9 +26,8 @@ jobs:
           npx cypress run --component
         continue-on-error: true
 
-      - name: Upload screenshots
-        uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
-            name: cypress-snapshots
-            path: cypress/snapshots
+          name: cypress-screenshots
+          path: cypress/results/screenshots
