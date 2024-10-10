@@ -8,15 +8,7 @@ describe('Counter Component', () => {
         mount(<CounterComponent />);
     });
 
-    afterEach(function() {
-        // Test fail olduğunda screenshot al
-        if (this.currentTest.state === 'failed') {
-          cy.screenshot(`${this.currentTest.title} (failed)`, {
-            capture: 'viewport',
-            overwrite: true
-          });
-        }
-      });
+    
     
 
     it('renders and increments count @counter', () => {
@@ -50,7 +42,7 @@ describe('Counter Component', () => {
         cy.get('button').contains('Reset').click(); // Reset to 0
         cy.wait(500)
         cy.get('h1').should('contain', 'Counter: 0');
-        cy.get('p').should('contain', 'The count is zero.');
+        cy.get('p').should('contain', 'The count is zeroo.');
 
 
     });
