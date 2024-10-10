@@ -1,5 +1,5 @@
 name: Cypress Component Tests
-on: [push, pull_request]
+on: [push]
 
 jobs:
   cypress:
@@ -24,10 +24,10 @@ jobs:
         id: cypress-tests
         run: |
           npx cypress run --component
-        continue-on-error: true
+    
 
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
-          path: cypress/results/screenshots
+          path: cypress/screenshots
