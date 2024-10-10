@@ -2,6 +2,9 @@ const { defineConfig } = require("cypress");
 const webpackConfig = require("./webpack.config.js");
 
 module.exports = defineConfig({
+  screenshotOnRunFailure: true,
+  screenshotsFolder: "cypress/screenshots",
+
   projectId: '3x5njp',
   component: {
     devServer: {
