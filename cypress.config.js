@@ -20,8 +20,8 @@ module.exports = defineConfig({
     specPattern: "cypress/component/**/*.cy.{js,jsx,ts,tsx}",
     screenshotOnRunFailure: true,
     screenshotsFolder: "cypress/screenshots",
-    video: true,
-    videoCompression: 32,
+    video: false,
+    
     
   },
   e2e: {
