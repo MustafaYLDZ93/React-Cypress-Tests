@@ -70,7 +70,7 @@ jobs:
     # cypress-react-app/public dizinini listele (Tanılama)
     - name: List cypress-react-app/public Directory
       run: ls -la
-      working-directory: cypress-react-app/public
+      working-directory: cypress-react-app
 
     # public dizininde index.html dosyasını kontrol et (Tanılama)
     - name: Check for index.html
