@@ -2,11 +2,14 @@ const { defineConfig } = require("cypress");
 const webpackConfig = require("./webpack.config.js");
 
 module.exports = defineConfig({
-  screenshotOnRunFailure: true,
-  screenshotsFolder: "cypress/screenshots",
-  reporter: 'cypress-mochawesome-reporter',
-
   projectId: '3x5njp',
+  reporter: 'cypress-mochawesome-reporter',
+  reporterOptions: {
+    reportDir: "cypress/reports",
+    overwrite: false,
+    html: true,
+    json: true
+  },
   component: {
     devServer: {
       framework: "react",
@@ -15,13 +18,16 @@ module.exports = defineConfig({
     },
     supportFile: "cypress/support/component.js",
     specPattern: "cypress/component/**/*.cy.{js,jsx,ts,tsx}",
-    screenshotOnRunFailure: true ,
+    screenshotOnRunFailure: true,
     screenshotsFolder: "cypress/screenshots",
+    video: true,
   },
-
   e2e: {
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
+    video: true,
+    screenshotsFolder: "cypress/screenshots",
+    screenshotOnRunFailure: true,
   },
 });
