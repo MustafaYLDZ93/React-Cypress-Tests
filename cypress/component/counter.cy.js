@@ -8,7 +8,7 @@ describe('Counter Component', () => {
         mount(<CounterComponent />);
     });
 
-    it('renders and increments count', () => {
+    it('renders and increments count @counter', () => {
         cy.get('h1').should('contain', 'Counter: 0');
         cy.get('p').should('contain', 'The count is zero.');
 

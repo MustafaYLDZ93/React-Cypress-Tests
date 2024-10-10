@@ -1,0 +1,3 @@
+"DESCRİPTİON","DURATİON İN MS","NAME","PARENT SUİTE","START TİME","STATUS","STOP TİME","SUB SUİTE","SUİTE","TEST CLASS","TEST METHOD"
+"","2281","Görev Silme Testi Doğru kullanıcı adı ve şifre ile giriş yapılır ve görev eklenip-silinir","","Thu Oct 10 09:27:34 TRT 2024","passed","Thu Oct 10 09:27:36 TRT 2024","","Görev Silme Testi","Doğru kullanıcı adı ve şifre ile giriş yapılır ve görev eklenip-silinir",""
+"","873","Görev Silme Testi Yanlış kullanıcı adı veya şifre ile giriş yapılamaz","","Thu Oct 10 09:27:34 TRT 2024","passed","Thu Oct 10 09:27:34 TRT 2024","","Görev Silme Testi","Yanlış kullanıcı adı veya şifre ile giriş yapılamaz",""

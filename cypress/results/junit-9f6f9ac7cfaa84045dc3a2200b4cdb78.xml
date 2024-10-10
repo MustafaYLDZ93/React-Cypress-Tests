@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="3.920" tests="2" failures="0">
+  <testsuite name="Root Suite" timestamp="2024-10-10T09:27:34" tests="0" file="cypress/e2e/3- react/ReactProject.cy.js" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Görev Silme Testi" timestamp="2024-10-10T09:27:34" tests="2" time="3.902" failures="0">
+    <testcase name="Görev Silme Testi Yanlış kullanıcı adı veya şifre ile giriş yapılamaz" time="0.873" classname="Yanlış kullanıcı adı veya şifre ile giriş yapılamaz">
+    </testcase>
+    <testcase name="Görev Silme Testi Doğru kullanıcı adı ve şifre ile giriş yapılır ve görev eklenip-silinir" time="2.281" classname="Doğru kullanıcı adı ve şifre ile giriş yapılır ve görev eklenip-silinir">
+    </testcase>
+  </testsuite>
+</testsuites>
