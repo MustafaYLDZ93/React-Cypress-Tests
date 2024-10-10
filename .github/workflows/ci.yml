@@ -79,7 +79,7 @@ jobs:
           echo "index.html dosyası bulunamadı!"
           exit 1
         fi
-      working-directory: cypress-react-app/public
+      working-directory: cypress-react-app
 
     # React Uygulamasını Derleme
     - name: Build React app
