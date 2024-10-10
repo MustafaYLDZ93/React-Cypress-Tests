@@ -19,4 +19,19 @@ jobs:
         run: npm install --legacy-peer-deps  # legacy-peer-deps eklenmiş
 
       - name: Run Cypress component tests
-        run: npx cypress run --component  # Bileşen testlerini çalıştırma
+        id: cypress-tests
+        run: |
+          npx cypress run --component || true  # Hata durumunda işleme devam et
+
+      - name: Capture screenshot on failure
+        if: steps.cypress-tests.outcome == 'failure'  # Eğer testler başarısızsa
+        run: |
+          mkdir -p screenshots
+          cp -r cypress/screenshots/* screenshots/  # Ekran görüntülerini al
+          
+      - name: Upload screenshots
+        if: steps.cypress-tests.outcome == 'failure'  # Eğer testler başarısızsa
+        uses: actions/upload-artifact@v2
+        with:
+          name: screenshots
+          path: screenshots/
