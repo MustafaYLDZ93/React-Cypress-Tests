@@ -11,6 +11,7 @@ module.exports = defineConfig({
     },
     supportFile: "cypress/support/component.js",
     specPattern: "cypress/component/**/*.cy.{js,jsx,ts,tsx}",
+    screenshotsFolder: "cypress/screenshots",
   },
 
   e2e: {
