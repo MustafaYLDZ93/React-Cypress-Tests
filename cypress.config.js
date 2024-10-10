@@ -21,13 +21,13 @@ module.exports = defineConfig({
     screenshotOnRunFailure: true,
     screenshotsFolder: "cypress/screenshots",
     video: true,
-    videoUploadOnPasses: false,
+    videoUploadOnPasses: true,
   },
   e2e: {
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
-    video: true,
+    video: false,
     screenshotsFolder: "cypress/screenshots",
     screenshotOnRunFailure: true,
   },
